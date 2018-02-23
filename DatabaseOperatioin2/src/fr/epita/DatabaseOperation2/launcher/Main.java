@@ -19,7 +19,7 @@ import fr.epita.DatabaseOperation2.services.IdentityJDBCDAO;
 public class Main {
 	private static Scanner sc = new Scanner(System.in);
 	private static String choice;
-	private static String decision;
+	
 	final static IdentityJDBCDAO dao = new IdentityJDBCDAO();
 	final static Identity id1 = new Identity();
 	final static Authentication ud1 = new Authentication();
@@ -74,13 +74,13 @@ public class Main {
 
 	private static void updatedata() {
 		
-		
-		System.out.println("Enter your Uid:");
-		id1.setUid(sc.next());
 		System.out.println("Enter your DisplayName:");
 		id1.setDisplayName(sc.next());
 		System.out.println("Enter your Email:");
 		id1.setEmail(sc.next());
+		System.out.println("Enter your Uid:");
+		id1.setUid(sc.next());
+		
 		try {
 			dao.update(id1);
 			
@@ -132,7 +132,7 @@ public class Main {
 		
 		login();
 			
-		while(true) {
+		
 		System.out.println("----------------------------------------------------");
 		System.out.println("----------------------------------------------------");
 		
@@ -168,22 +168,6 @@ public class Main {
 		showdata(); break;}
 		default: break;
 		}
-		
-		 System.out.println("enter another name : yes or no");
-	        decision = kbd.nextLine();
-
-	        switch(decision){
-	        case "yes":
-	            yn = false;
-	            break;
-	        case "no": 
-	            yn = true;
-	            break;
-	        default : 
-	            System.out.println("please enter again ");
-	             return default;
-	        }
-	}
 		sc.close();
 				
 	}

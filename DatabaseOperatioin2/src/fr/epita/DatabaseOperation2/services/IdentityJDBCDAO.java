@@ -134,10 +134,9 @@ public class IdentityJDBCDAO implements IdentityDAO{
 			final PreparedStatement preparedStatement = connection
 					.prepareStatement("UPDATE IDENTITIES SET UID = ?, DISPLAY_NAME = ?, EMAIL= ? WHERE UID = ?");
 			
-			preparedStatement.setString(3, identity.getUid());
 			preparedStatement.setString(1, identity.getDisplayName());
 			preparedStatement.setString(2, identity.getEmail());
-			
+			preparedStatement.setString(3, identity.getUid());
 			
 		}catch (ClassNotFoundException | SQLException e) {
 			LOGGER.error("error in create method :" + e.getMessage());
@@ -162,13 +161,15 @@ public class IdentityJDBCDAO implements IdentityDAO{
 		try {
 			connection = getConnection();
 			final PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT * FROM IDENTITIES ");
+					.prepareStatement("select * FROM IDENTITIES ");
+			preparedStatement.setString(3, criteria.getUid());
+			preparedStatement.setString(1, criteria.getDisplayName());
+			preparedStatement.setString(2, criteria.getEmail());
 
 			final ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				final Identity identity = new Identity();
-		
-				identity.setDisplayName(resultSet.get(1));
+				identity.setDisplayName(resultSet.getString(1));
 				identity.setEmail(resultSet.getString(2));
 				identity.setUid(resultSet.getString(3));
 				
@@ -197,7 +198,7 @@ public class IdentityJDBCDAO implements IdentityDAO{
 			connection = getConnection();
 			
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("DELETE FROM IDENTITIES WHERE UID = ? ");
+					.prepareStatement("Delete IDENTITIES WHERE UID = ? ");
 			preparedStatement.setString(3, identity.getUid());
 			
 		}catch (ClassNotFoundException | SQLException e) {
