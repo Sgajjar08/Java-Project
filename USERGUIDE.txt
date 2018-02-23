@@ -1,0 +1,3 @@
+Run a Main file.
+Open Run configuration enter the VM arguments as -Dconf=testConfiguration.properties.
+APPLY AND RUN.
